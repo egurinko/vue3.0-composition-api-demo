@@ -1,29 +1,8 @@
 <template>
   <div class="list-container m-auto my-10 bg-white rounded p-10">
-    <div class="text-center">
-      Number of Working Todos
+    <div class="text-center my-10">
+      Number of Working Todos : {{ numOfTodos }}
     </div>
-    <svg class="m-auto mb-5" viewBox="0 0 500 500" width="100px" height="100px">
-      <g id="UrTavla">
-        <circle
-          style="fill:url(#toning);stroke:#5a67d8;stroke-width:1.6871;stroke-miterlimit:10;"
-          cx="250"
-          cy="250"
-          r="200"
-        ></circle>
-        <text
-          x="50%"
-          y="50%"
-          text-anchor="middle"
-          stroke="#5a67d8"
-          stroke-width="2px"
-          dy=".3em"
-          font-size="100"
-        >
-          {{ numOfTodos }}
-        </text>
-      </g>
-    </svg>
     <div class="flex mb-10">
       <div class="w-2/3 mb-4 relative">
         <input
@@ -50,122 +29,33 @@
       <p class="mr-4">
         Filter By
       </p>
-      <label class="custom-label flex mr-4">
-        <div
-          class="bg-white shadow w-6 h-6 p-1 flex justify-center items-center mr-2"
-        >
-          <input
-            type="checkbox"
-            class="hidden"
-            :checked="this.filterBy === 'All'"
-            @click="handleClickFilterBy('All')"
-          />
-          <svg
-            class="hidden w-4 h-4 text-green-600 pointer-events-none"
-            viewBox="0 0 172 172"
-          >
-            <g
-              fill="none"
-              stroke-width="none"
-              stroke-miterlimit="10"
-              font-family="none"
-              font-weight="none"
-              font-size="none"
-              text-anchor="none"
-              style="mix-blend-mode:normal"
-            >
-              <path d="M0 172V0h172v172z" />
-              <path
-                d="M145.433 37.933L64.5 118.8658 33.7337 88.0996l-10.134 10.1341L64.5 139.1341l91.067-91.067z"
-                fill="currentColor"
-                stroke-width="1"
-              />
-            </g>
-          </svg>
-        </div>
-        <span class="select-none">All</span>
-      </label>
-      <label class="custom-label flex mr-4">
-        <div
-          class="bg-white shadow w-6 h-6 p-1 flex justify-center items-center mr-2"
-        >
-          <input
-            type="checkbox"
-            class="hidden"
-            :checked="this.filterBy === 'Working'"
-            @click="handleClickFilterBy('Working')"
-          />
-          <svg
-            class="hidden w-4 h-4 text-green-600 pointer-events-none"
-            viewBox="0 0 172 172"
-          >
-            <g
-              fill="none"
-              stroke-width="none"
-              stroke-miterlimit="10"
-              font-family="none"
-              font-weight="none"
-              font-size="none"
-              text-anchor="none"
-              style="mix-blend-mode:normal"
-            >
-              <path d="M0 172V0h172v172z" />
-              <path
-                d="M145.433 37.933L64.5 118.8658 33.7337 88.0996l-10.134 10.1341L64.5 139.1341l91.067-91.067z"
-                fill="currentColor"
-                stroke-width="1"
-              />
-            </g>
-          </svg>
-        </div>
-        <span class="select-none">Working</span>
-      </label>
-      <label class="custom-label flex mr-4">
-        <div
-          class="bg-white shadow w-6 h-6 p-1 flex justify-center items-center mr-2"
-        >
-          <input
-            type="checkbox"
-            class="hidden"
-            :checked="this.filterBy === 'Done'"
-            @click="handleClickFilterBy('Done')"
-          />
-          <svg
-            class="hidden w-4 h-4 text-green-600 pointer-events-none"
-            viewBox="0 0 172 172"
-          >
-            <g
-              fill="none"
-              stroke-width="none"
-              stroke-miterlimit="10"
-              font-family="none"
-              font-weight="none"
-              font-size="none"
-              text-anchor="none"
-              style="mix-blend-mode:normal"
-            >
-              <path d="M0 172V0h172v172z" />
-              <path
-                d="M145.433 37.933L64.5 118.8658 33.7337 88.0996l-10.134 10.1341L64.5 139.1341l91.067-91.067z"
-                fill="currentColor"
-                stroke-width="1"
-              />
-            </g>
-          </svg>
-        </div>
-        <span class="select-none">Done</span>
-      </label>
+      <input
+        type="checkbox"
+        class="mx-1 mt-1"
+        :checked="this.filterBy === 'All'"
+        @click="handleClickFilterBy('All')"
+      />
+      <span class="select-none mr-4">All</span>
+      <input
+        type="checkbox"
+        class="mx-1 mt-1"
+        :checked="this.filterBy === 'Working'"
+        @click="handleClickFilterBy('Working')"
+      />
+      <span class="select-none mr-4">Working</span>
+      <input
+        type="checkbox"
+        class="mx-1 mt-1"
+        :checked="this.filterBy === 'Done'"
+        @click="handleClickFilterBy('Done')"
+      />
+      <span class="select-none mr-4">Done</span>
     </div>
 
     <div class="w-full" v-for="(todo, index) in filteredTodos" :key="index">
       <div class="flex cursor-pointer my-1 hover:bg-blue-lightest rounded">
-        <div class="w-8 text-center">
-          <p class="text-3xl p-0 text-green-dark">&bull;</p>
-        </div>
         <div class="w-4/5 py-3 px-1">
-          <p class="hover:text-blue-dark">
-            {{ todo.name }}
-          </p>
+          <p class="hover:text-blue-dark">・{{ todo.name }}</p>
         </div>
         <button
           class="button w-1/6 text-center p-3 bg-green-600 hover:bg-blue-dark text-white font-bold rounded ml-4 mb-4"
@@ -176,7 +66,6 @@
         </button>
         <button
           class="button w-1/6 text-center p-3 bg-green-600 hover:bg-blue-dark text-white font-bold rounded ml-4 mb-4 opacity-50 cursor-not-allowed"
-          @click="completeTodo(index)"
           :disabled="todo.completed"
           v-if="todo.completed"
         >
