@@ -202,7 +202,16 @@ export type todo = {
   completed: boolean;
 };
 
-export type FilterBy = "All" | "Working" | "Done";
+export enum FilterByEnum {
+  ALL = "All",
+  WORKING = "Working",
+  DONE = "Done"
+}
+
+export type FilterBy =
+  | FilterByEnum.ALL
+  | FilterByEnum.WORKING
+  | FilterByEnum.DONE;
 
 export type Data = {
   todos: todo[];
@@ -214,16 +223,16 @@ export default Vue.extend({
   data: (): Data => ({
     todos: [],
     newTodo: "",
-    filterBy: "All"
+    filterBy: FilterByEnum.ALL
   }),
   computed: {
     filteredTodos: function() {
       return this.todos.filter(todo => {
-        if (this.filterBy === "Working") {
-          return todo.completed === false;
+        if (this.filterBy === FilterByEnum.WORKING) {
+          return !todo.completed;
         }
-        if (this.filterBy === "Done") {
-          return todo.completed === true;
+        if (this.filterBy === FilterByEnum.DONE) {
+          return todo.completed;
         }
         return todo;
       });
@@ -240,13 +249,9 @@ export default Vue.extend({
       this.getTodos();
     },
     addTodo: function(): void {
-      this.todos = [
-        ...this.todos,
-        {
-          name: this.newTodo,
-          completed: false
-        }
-      ];
+      const newTodo = { name: this.newTodo, completed: false };
+      this.todos = [...this.todos, newTodo];
+
       this.newTodo = "";
     },
     deleteTodo: function(index: number): void {
