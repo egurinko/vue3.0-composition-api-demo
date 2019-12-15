@@ -58,7 +58,7 @@
             type="checkbox"
             class="hidden"
             :checked="this.filterBy === 'All'"
-            @click="changeFilterBy('All')"
+            @click="handleClickFilterBy('All')"
           />
           <svg
             class="hidden w-4 h-4 text-green-600 pointer-events-none"
@@ -93,7 +93,7 @@
             type="checkbox"
             class="hidden"
             :checked="this.filterBy === 'Working'"
-            @click="changeFilterBy('Working')"
+            @click="handleClickFilterBy('Working')"
           />
           <svg
             class="hidden w-4 h-4 text-green-600 pointer-events-none"
@@ -128,7 +128,7 @@
             type="checkbox"
             class="hidden"
             :checked="this.filterBy === 'Done'"
-            @click="changeFilterBy('Done')"
+            @click="handleClickFilterBy('Done')"
           />
           <svg
             class="hidden w-4 h-4 text-green-600 pointer-events-none"
@@ -196,28 +196,7 @@
 <script lang="ts">
 import Vue from "vue";
 import todos from "../utils/todos";
-
-export type todo = {
-  name: string;
-  completed: boolean;
-};
-
-export enum FilterByEnum {
-  ALL = "All",
-  WORKING = "Working",
-  DONE = "Done"
-}
-
-export type FilterBy =
-  | FilterByEnum.ALL
-  | FilterByEnum.WORKING
-  | FilterByEnum.DONE;
-
-export type Data = {
-  todos: todo[];
-  newTodo: string;
-  filterBy: FilterBy;
-};
+import { FilterByEnum, Data, FilterBy } from "./types/List";
 
 export default Vue.extend({
   data: (): Data => ({
@@ -260,7 +239,7 @@ export default Vue.extend({
     completeTodo: function(index: number): void {
       this.todos[index].completed = true;
     },
-    changeFilterBy: function(filterBy: FilterBy): void {
+    handleClickFilterBy: function(filterBy: FilterBy): void {
       this.filterBy = filterBy;
     },
     getTodos: function(): void {
