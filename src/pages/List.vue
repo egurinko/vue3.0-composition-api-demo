@@ -58,18 +58,26 @@
           <p>・{{ todo.name }}</p>
         </div>
         <button
-          class="button w-1/6 text-center p-3 bg-green-600 text-white font-bold rounded ml-4 mb-4"
+          class="button w-1/6 text-center p-3 bg-green-600 text-white font-bold rounded ml-4 mb-4 "
+          :class="{
+            'cursor-not-allowed': todo.completed,
+            'opacity-50': todo.completed
+          }"
+          :disabled="todo.completed"
           @click="completeTodo(index)"
-          v-if="!todo.completed"
         >
           Done
         </button>
         <button
-          class="button w-1/6 text-center p-3 bg-green-600 text-white font-bold rounded ml-4 mb-4 opacity-50 cursor-not-allowed"
+          class="button w-1/6 text-center p-3 bg-yellow-500 text-white font-bold rounded ml-4 mb-4"
+          :class="{
+            'cursor-not-allowed': todo.completed,
+            'opacity-50': todo.completed
+          }"
           :disabled="todo.completed"
-          v-if="todo.completed"
+          @click="goEditTodo(index)"
         >
-          Done
+          Edit
         </button>
         <button
           class="button w-1/6 text-center p-3 bg-red-500 text-white font-bold rounded ml-4 mb-4"
@@ -130,6 +138,9 @@ export default Vue.extend({
     },
     handleClickFilterBy: function(filterBy: FilterBy): void {
       this.filterBy = filterBy;
+    },
+    goEditTodo: function(index: number): void {
+      this.$router.push(`/todos/${index}/edit`);
     },
     getTodos: function(): void {
       setTimeout(() => {
