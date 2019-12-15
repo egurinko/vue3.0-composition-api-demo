@@ -53,26 +53,26 @@
     </div>
 
     <div class="w-full" v-for="(todo, index) in filteredTodos" :key="index">
-      <div class="flex cursor-pointer my-1 hover:bg-blue-lightest rounded">
+      <div class="flex my-1 hover:bg-blue-lightest rounded">
         <div class="w-4/5 py-3 px-1">
-          <p class="hover:text-blue-dark">・{{ todo.name }}</p>
+          <p>・{{ todo.name }}</p>
         </div>
         <button
-          class="button w-1/6 text-center p-3 bg-green-600 hover:bg-blue-dark text-white font-bold rounded ml-4 mb-4"
+          class="button w-1/6 text-center p-3 bg-green-600 text-white font-bold rounded ml-4 mb-4"
           @click="completeTodo(index)"
           v-if="!todo.completed"
         >
           Done
         </button>
         <button
-          class="button w-1/6 text-center p-3 bg-green-600 hover:bg-blue-dark text-white font-bold rounded ml-4 mb-4 opacity-50 cursor-not-allowed"
+          class="button w-1/6 text-center p-3 bg-green-600 text-white font-bold rounded ml-4 mb-4 opacity-50 cursor-not-allowed"
           :disabled="todo.completed"
           v-if="todo.completed"
         >
           Done
         </button>
         <button
-          class="button w-1/6 text-center p-3 bg-red-500 hover:bg-blue-dark text-white font-bold rounded ml-4 mb-4"
+          class="button w-1/6 text-center p-3 bg-red-500 text-white font-bold rounded ml-4 mb-4"
           @click="deleteTodo(index)"
         >
           Delete
