@@ -1,6 +1,7 @@
 import Vue from "vue";
 import router from "./router/index";
 import "./assets/styles/index.css";
+import "./utils/compositionPlugin";
 
 import App from "./App.vue";
 
