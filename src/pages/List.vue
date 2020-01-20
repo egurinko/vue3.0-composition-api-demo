@@ -84,19 +84,43 @@ import {
   reactive,
   onMounted,
   computed,
-  toRefs
+  toRefs,
+  inject
 } from "@vue/composition-api";
 import todos from "../utils/todos";
-import { useTodos } from "../composables/useTodos";
+import { StoreKey, Store } from "../store";
 
 export default createComponent({
   setup(props, context) {
+    const store = inject(StoreKey);
+    if (!store) return;
+
+    const {
+      todos,
+      newTodo,
+      filterBy,
+      filteredTodos,
+      numOfTodos,
+      addTodo,
+      handleClickFilterBy,
+      completeTodo,
+      deleteTodo
+    } = store;
+
     const goEditTodo = function(index: number): void {
       context.root.$router.push(`/todos/${index}/edit`);
     };
 
     return {
-      ...useTodos(),
+      todos,
+      newTodo,
+      filterBy,
+      filteredTodos,
+      numOfTodos,
+      addTodo,
+      handleClickFilterBy,
+      completeTodo,
+      deleteTodo,
       goEditTodo
     };
   }

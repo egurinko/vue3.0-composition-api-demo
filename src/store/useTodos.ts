@@ -1,6 +1,12 @@
 import todos from "../utils/todos";
 import { FilterByEnum, Data, FilterBy } from "./types/UseTodos";
-import { reactive, onMounted, computed, toRefs } from "@vue/composition-api";
+import {
+  reactive,
+  onMounted,
+  computed,
+  toRefs,
+  InjectionKey
+} from "@vue/composition-api";
 
 export const useTodos = () => {
   const todoState = reactive<Data>({
@@ -62,3 +68,6 @@ export const useTodos = () => {
     deleteTodo
   };
 };
+
+export type UseTodos = ReturnType<typeof useTodos>;
+export const TodosKey: InjectionKey<UseTodos> = Symbol("UseTodos");
